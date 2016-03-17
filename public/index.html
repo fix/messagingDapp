@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="application-name" content="Lisk Messaging"/>
+    <meta name="msapplication-TileColor" content="#F3F3E1" />
+    <meta name="msapplication-TileImage" content="images/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="images/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="images/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="images/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="images/mstile-310x310.png" />
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/apple-touch-icon-152x152.png" />
+
+    <link rel="icon" type="image/png" href="images/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="images/favicon-128.png" sizes="128x128" />
+
+    <title>Messaging Lisk</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <script src="js/jquery.js"></script>
+</head>
+<body>
+  <nav style="display:none;" class="mainapp navbar navbar-default">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <img src="images/icon.png">
+        <a class="navbar-brand" href="/">MessageLisk</a>
+
+      </div>
+      <button id="logout" class="mainapp navbar-btn pull-right btn btn-danger">Logout</button>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <div class="container">
+    <div style="display:none;" class="mainapp row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="col-lg-12">
+          <div class="panel widget widget-brown">
+            <div class="lisk-icon"></div>
+            <div class="panel-body">
+              <div class="wg-label">
+                <i class="glyphicon glyphicon-user"></i> <span id="profilename"></span>
+              </div>
+              <div class="wg-data">
+                <span id="balance" class="strong "></span>&nbsp;LISK
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="panel  widget widget-brown">
+            <div class="contacts-icon"></div>
+            <div class="panel-body">
+              <div class="wg-label ">
+                Followers
+              </div>
+              <div id="followers" class="wg-data">
+                <h1 class="strong "></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="panel  widget widget-brown">
+            <div class="contacts-icon"></div>
+            <div class="panel-body">
+              <div class="wg-label ">
+                Following
+              </div>
+              <div id="followings" class="wg-data">
+                <h1 class="strong "></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel col-xs-12 col-sm-6">
+        <div class="panel-heading">
+          <h1>Send a message<br><small>Choose a recipient and send him a message</small></h1>
+        </div>
+        <div class="panel-body">
+          <form class="panel-body" id="mainform" name="public">
+            <div class="form-group">
+              <input type="text" class="form-control" id="account" placeholder="Recipient Account Id">
+            </div>
+            <div class="form-group">
+              <textarea rows="3" cols="50" type="text" class="form-control" id="entry" maxlength="160" placeholder="Your message (max 160 characters)"></textarea>
+            </div>
+            <button type="button" id="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-default">Submit</button>
+          </form>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-12 col-xs-12 panel panel-default">
+      <div class="panel-heading cursor" eat-click-if="!transactions.length" ui-sref="main.transactions" href="/transactions">
+        <h2 class="">
+          Latest Messages
+        </h2>
+      </div>
+      <table id="transactions">
+
+        <tbody id="entryOverview">
+
+        </tbody>
+      </table><!-- end ngIf: transactions.length -->
+      <!-- ngIf: !transactions.length -->
+      </div>
+    </div>
+  </div>
+  <div class="container-app en loginwindow">
+      <div class="pass-banner"></div>
+      <div class="pass-bottom">
+          <div class="pass-window">
+              <div class="pass-window-icon">
+              </div>
+              <form id="loginwindow" name="login" class="clearfix pass-window-form" >
+                <div class="input-field">
+                    <input id="passphrase" type="password" autofocus="" class="" style="">
+                    <label for="password" class="active"><translate><span>Your Passphrase</span></translate></label>
+                </div>
+                <div class="buttons-panel pull-right">
+                    <a id="submitlogin" class="btn btn-blue waves-effect waves-light">Login</a>
+                </div>
+              </form>
+          </div>
+
+          <div class="pass-footer clearfix">Lisk © 2016. All Rights Reserved.</div>
+      </div>
+
+  </div>
+
+  <script type="text/javascript">
+    var url = window.location.href;
+    var parts = url.split('/');
+    var dappId = parts[parts.indexOf('dapps') + 1];
+
+    function reloadPage() {
+     window.location.reload();
+    }
+    function checkCurrentAccount(){
+      if(window.currentAccount){
+        $(".mainapp").show();
+        $(".loginwindow").hide();
+      }
+
+      else{
+        $(".mainapp").hide();
+        $(".loginwindow").show();
+      }
+    }
+
+    $("#logout").click(function(){
+      reloadPage();
+    });
+
+    $("#loginwindow").submit(function () {
+      jQuery.ajax({
+          url: '/api/accounts/open',
+          type: 'POST',
+          dataType: 'json',
+          data: { "secret":document.login.passphrase.value }
+      }).done(function (resp) {
+        if(resp && resp.success){
+          window.currentAccount=resp.account;
+          window.currentPassphrase=document.login.passphrase.value
+          $(".mainapp").show();
+          $(".loginwindow").hide();
+          $("#profilename").html(window.currentAccount.address);
+          $("#balance").html(window.currentAccount.balance/100000000);
+          getContacts();
+          getEntries(window.currentAccount.address);
+        }
+        else{
+          $(".loginwindow").append("<div class='popupmessage col-lg-12 alert alert-danger'>Unknown account, please put another passphrase</div>");
+        }
+      });
+      return false;
+    });
+
+    $("#submit").click(function () {
+        if (document.public.account.value == "")
+        {
+          $("#mainform").append("<div class='popupmessage col-lg-12 alert alert-danger'>Please enter a recipient!</div>");
+
+        }
+        if (document.public.entry.value == "")
+        {
+            $("#mainform").append("<div class='popupmessage col-lg-12 alert alert-danger'>Your message is empty!</div>");
+            return;
+        }
+
+        jQuery.ajax({
+            url: '/api/dapps/' + dappId + '/api/messages/add',
+            type: 'PUT',
+            dataType: 'json',
+            data: { "recipientId": document.public.account.value, "message": document.public.entry.value, "secret": window.currentPassphrase }
+        }).done(function (resp) {
+            document.public.entry.value="";
+            $("#mainform").append("<div class='popupmessage col-lg-12 alert alert-success'>Your message has been sent, it will appears in 10s or so</div>");
+        });
+
+        return false;
+    });
+
+    function getContacts(){
+      jQuery.get("/api/contacts/?publicKey=" + window.currentAccount.publicKey, function (data) {
+          if (data.error == "DAPPS.DAPPS_NOT_READY") {
+              alert("Dapp offline! The master node which computes your instance of this dapp is offline. Please reload the window!");
+          }
+          if(data){
+            console.log(data)
+            var numberOfFollowers = data.followers.length;
+            var numberOfFollowing = data.following.length;
+            $("#followers h1").html(numberOfFollowers);
+            $("#followings h1").html(numberOfFollowing);
+          }
+      });
+
+    }
+
+    function getEntries(address) {
+        $(".popupmessage").remove();
+        jQuery.get("/api/dapps/" + dappId + "/api/messages/list?recipientId=" +address, function (data) {
+            $("#entryOverview").html('');
+            if (data.error == "DAPPS.DAPPS_NOT_READY") {
+                alert("Dapp offline! The master node which computes your instance of this dapp is offline. Please reload the window!");
+            }
+            if(data.response){
+              jQuery.each(data.response.messages, function (key, value) {
+                  if (value.senderId == "14064670321469355749L") {
+                      value.senderId = "Anonymous";
+                  }
+                  var numberOfEntries = data.response.messages.length - 20;
+                  if (key < numberOfEntries) {
+                      return;
+                  }
+                  key = key + 1;
+                  $("#entryOverview")
+                          .prepend("<table><tr><td class='col-md-1'><strong>#" + key + "</strong></td><td class='col-md-7'><strong>Sender:</strong> " + value.senderId + "</td><td class='col-md-4'><strong>ID:</strong> " + value.blockId.substring(0, 16) + "</td></tr><tr><td colspan='4'>" + value.asset.message.replace(/[<>]/g,'') + "</td></tr></table>");
+              });
+            } else {
+                $("#entryOverview").append("<h2>No message to display yet!</h2>")
+            }
+        });
+    }
+    checkCurrentAccount();
+    setInterval(function () {
+      if(window.currentAccount){
+        getEntries(window.currentAccount.address);
+      }
+    }, 10000);
+  </script>
+</body>
+</html>
